@@ -3,72 +3,124 @@ using System.Collections.Generic;
 
 namespace GB_02_06
 {
-    public class Node //Вершина
-    {
-        public int Value { get; set; }
-        public List<Edge> Edges { get; set; } //исходящие связи
-    }
-
-    public class Edge //Ребро
-    {
-        public int Weight { get; set; } //вес связи
-        public Node Node { get; set; } // узел, на который связь ссылается
-    }
-
-
-
     class Program
     {
-
-        static void CompleteGraph(int top)        // количество вершин
+        static void Main(string[] args)
         {
+            var graph = new Graph();
+
+            var v1 = new Node(1);
+            var v2 = new Node(2);
+            var v3 = new Node(3);
+            var v4 = new Node(4);
+            var v5 = new Node(5);
+            var v6 = new Node(6);
+            var v7 = new Node(7);
+            var v8 = new Node(8);
+            var v9 = new Node(9);
+
+            graph.AddNode(v1);
+            graph.AddNode(v2);
+            graph.AddNode(v3);
+            graph.AddNode(v4);
+            graph.AddNode(v5);
+            graph.AddNode(v6);
+            graph.AddNode(v7);
+            graph.AddNode(v8);
+            graph.AddNode(v9);
+
+            graph.AddEdge(v1, v2);
+            graph.AddEdge(v1, v3);
+            graph.AddEdge(v1, v5);
+            graph.AddEdge(v1, v9);
+            graph.AddEdge(v3, v4);
+            graph.AddEdge(v2, v5);
+            graph.AddEdge(v5, v6);
+            graph.AddEdge(v7, v8);
+            graph.AddEdge(v8, v7);
+            graph.AddEdge(v9, v8);
+
+            GetMatrix(graph);
+
+
+
+
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+            GetNode(graph, v1);
+            GetNode(graph, v2);
+            GetNode(graph, v3);
+            GetNode(graph, v4);
+            GetNode(graph, v5);
+            GetNode(graph, v6);
+            GetNode(graph, v7);
+
+            Console.WriteLine();
+
+            Console.WriteLine(graph.СonnectionNodes(v1, v5));
+            Console.WriteLine(graph.СonnectionNodes(v1, v2));
+            Console.WriteLine(graph.СonnectionNodes(v1, v9));
+
+            Console.WriteLine();
+
+            //graph.BFS(graph.GetNodeLists());
+
+            
+
+
+
 
 
         }
 
-        static void Main(string[] args)
+        
+
+        private static void GetNode(Graph graph, Node node)  // вывод вершины со смежными вершинами
         {
-            int[,] W = new int[N, N]; // Весовая матрица
-            Load(W);
-
-            int[,] ostov = new int[N, 2]; // Состояния вершин (просмотрена или не просмотрена)
-            int[] a = new int[N];
-            int iMin = 0;
-            int jMin = 0;
-            for (int k = 0; k < N - 1; k++)
+            //Console.WriteLine("           Вывод вершины со смежными вершинами") ;
+            Console.Write(node.Number + ": ");
+            foreach (var v in graph.GetNodeLists(node))
             {
-                //Поиск ребра с минимальным весом
-                int min = Int32.MaxValue;
-                for (int i = 0; i < N; i++)
-                {
-                    for (int j = 0; j < N; j++)
-                    {
-                        if (a[i] != a[j] && W[i, j] < min)
-                        {
-                            iMin = i;
-                            jMin = j;
-                            min = W[i, j];
-                        }
-                    }
-                }
+                Console.Write(v.Number + ", ");
 
-                // Добавление ребра в список выбранных
-                ostov[k, 0] = iMin;
-                ostov[k, 1] = jMin;
-                // Перекрашивание вершин
-                int jM = a[jMin], iM = a[iMin];
-                for (int i = 0; i < N; i++)
-                {
-                    if (a[i] == jM)
-                        a[i] = iM;
-                }
             }
-            // Вывод результата
-            for (int i = 0; i < N - 1; i++)
-                Console.WriteLine($"({ostov[i, 0]}, {ostov[i, 1]}");
+            Console.WriteLine();
 
+        }
 
+        private static void BFS(Graph graph, Node node)
+        {
 
+        }
+
+        private static void GetMatrix(Graph graph)  //матрица смежности
+        {
+
+            Console.WriteLine("           Матрица смежности");
+            Console.WriteLine();
+            int[,] matrix = graph.GetMatrix();
+
+            for (int i = 0; i < graph.NodeCount; i++)
+            {
+                Console.Write("   ");
+                Console.Write(i + 1);
+                Console.Write("");
+            }
+            Console.WriteLine();
+
+            for (int i = 0; i < graph.NodeCount; i++)
+            {
+                Console.Write(i + 1);
+                for (int j = 0; j < graph.NodeCount; j++)
+                {
+                    Console.Write("| " + matrix[i, j] + " ");
+
+                }
+                Console.WriteLine();
+            }
+           
         }
     }
 }
