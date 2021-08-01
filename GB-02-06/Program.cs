@@ -5,122 +5,94 @@ namespace GB_02_06
 {
     class Program
     {
+       
+
         static void Main(string[] args)
         {
-            var graph = new Graph();
+            Graph(10); // количество вершин
 
-            var v1 = new Node(1);
-            var v2 = new Node(2);
-            var v3 = new Node(3);
-            var v4 = new Node(4);
-            var v5 = new Node(5);
-            var v6 = new Node(6);
-            var v7 = new Node(7);
-            var v8 = new Node(8);
-            var v9 = new Node(9);
+            BFS();
 
-            graph.AddNode(v1);
-            graph.AddNode(v2);
-            graph.AddNode(v3);
-            graph.AddNode(v4);
-            graph.AddNode(v5);
-            graph.AddNode(v6);
-            graph.AddNode(v7);
-            graph.AddNode(v8);
-            graph.AddNode(v9);
+            Graph(10); // количество вершин
 
-            graph.AddEdge(v1, v2);
-            graph.AddEdge(v1, v3);
-            graph.AddEdge(v1, v5);
-            graph.AddEdge(v1, v9);
-            graph.AddEdge(v3, v4);
-            graph.AddEdge(v2, v5);
-            graph.AddEdge(v5, v6);
-            graph.AddEdge(v7, v8);
-            graph.AddEdge(v8, v7);
-            graph.AddEdge(v9, v8);
-
-            GetMatrix(graph);
+            DFS();
 
 
 
+        }
 
 
+        static Queue<int> queue = new Queue<int>();    // очередь, хранящая номера вершин
+
+        static Random rand = new Random();
+        static int visited;
+        static bool[] used;
+        static int[][] g;
+
+        private static void Graph(int node)
+        {
             Console.WriteLine();
-            Console.WriteLine();
+            Console.WriteLine(" Построение графа");
 
-            GetNode(graph, v1);
-            GetNode(graph, v2);
-            GetNode(graph, v3);
-            GetNode(graph, v4);
-            GetNode(graph, v5);
-            GetNode(graph, v6);
-            GetNode(graph, v7);
+             visited = node - 1;
 
-            Console.WriteLine();
+            used = new bool[visited + 1];  //массив отмечающий посещённые вершины
+            g = new int[visited + 1][];   //массив содержащий записи смежных вершин
 
-            Console.WriteLine(graph.СonnectionNodes(v1, v5));
-            Console.WriteLine(graph.СonnectionNodes(v1, v2));
-            Console.WriteLine(graph.СonnectionNodes(v1, v9));
+            for (int i = 0; i < visited + 1; i++)
+            {
+                g[i] = new int[visited + 1];
+                Console.Write($"\n({i + 1}) вершина -->[");
+                for (int j = 0; j < visited + 1; j++)
+                {
+                    g[i][j] = rand.Next(0, 2);
+                }
+                g[i][i] = 0;
+                foreach (var item in g[i])
+                {
+                    Console.Write(" {0}", item);
+                }
+                Console.Write("]\n");
+            }
 
+            used[visited] = true;     //массив, хранящий состояние вершины(посещали мы её или нет)
+
+            queue.Enqueue(visited);
             Console.WriteLine();
 
-            //graph.BFS(graph.GetNodeLists());
 
+        }
+        private static void BFS()
+        {
+            Console.WriteLine("Начинаем обход с {0} вершины", visited + 1);
             
+            while (queue.Count != 0)
+            {
+                visited = queue.Peek();
+                queue.Dequeue();
+                Console.WriteLine("Перешли к узлу {0}", visited + 1);
 
+                for (int i = 0; i < g.Length; i++)
+                {
+                    if (Convert.ToBoolean(g[visited][i]))
+                    {
+                        if (!used[i])
+                        {
+                            used[i] = true;
+                            queue.Enqueue(i);
+                            Console.WriteLine("Добавили в очередь узел {0}", i + 1);
+                        }
+                    }
+                }
+            }
+        }
 
-
-
+        private static void DFS()
+        {
+            
 
         }
 
         
-
-        private static void GetNode(Graph graph, Node node)  // вывод вершины со смежными вершинами
-        {
-            //Console.WriteLine("           Вывод вершины со смежными вершинами") ;
-            Console.Write(node.Number + ": ");
-            foreach (var v in graph.GetNodeLists(node))
-            {
-                Console.Write(v.Number + ", ");
-
-            }
-            Console.WriteLine();
-
-        }
-
-        private static void BFS(Graph graph, Node node)
-        {
-
-        }
-
-        private static void GetMatrix(Graph graph)  //матрица смежности
-        {
-
-            Console.WriteLine("           Матрица смежности");
-            Console.WriteLine();
-            int[,] matrix = graph.GetMatrix();
-
-            for (int i = 0; i < graph.NodeCount; i++)
-            {
-                Console.Write("   ");
-                Console.Write(i + 1);
-                Console.Write("");
-            }
-            Console.WriteLine();
-
-            for (int i = 0; i < graph.NodeCount; i++)
-            {
-                Console.Write(i + 1);
-                for (int j = 0; j < graph.NodeCount; j++)
-                {
-                    Console.Write("| " + matrix[i, j] + " ");
-
-                }
-                Console.WriteLine();
-            }
-           
-        }
     }
 }
