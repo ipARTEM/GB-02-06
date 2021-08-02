@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GB_02_06
 {
-    class NodeInfo
+    public class NodeInfo
     {
         public char node;
         public bool used;
@@ -46,6 +46,10 @@ namespace GB_02_06
             {
                 SetSumToNextNodes(curr);
             }
+
+            Console.WriteLine();
+            Console.Write("Самый быстрый маршрут из 'A' в'I'= ");
+             
             return RestorePath(node1,node2);
         }
 
@@ -79,20 +83,29 @@ namespace GB_02_06
             }
         }
 
+        
         private char FindUnusedMinimalNode()
         {
             int minSum = int.MaxValue;
-            char minNode='0';
+            char minNode='0';   
+            Console.Write('A');
             foreach(var node in graph.GetNodes())
             {
+                
                 NodeInfo info = GetNodeInfo( node);
+                Console.Write($"{node}  ");
                 if (info.used) continue;
                 if (info.sum < minSum)
                 {
                     minSum = info.sum;
+
+                    
                     minNode = node;
+                    Console.Write($"={minSum} {minNode} ");
                 }
             }
+            Console.WriteLine();
+            
             return minNode;
         }
 

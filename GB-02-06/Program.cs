@@ -19,23 +19,32 @@ namespace GB_02_06
             graph.AddNode('E');
             graph.AddNode('F');
             graph.AddNode('G');
+            graph.AddNode('H');
+            graph.AddNode('I');
 
-            graph.AddEdge('A','B' ,2);
-            graph.AddEdge('A', 'C',3);
-            graph.AddEdge('A', 'D',6);
-            graph.AddEdge('B', 'C',4);
-            graph.AddEdge('C', 'D',1);
-            graph.AddEdge('B', 'E',9);
-            graph.AddEdge('C', 'E',7);
-            graph.AddEdge('C', 'F', 6);
-            graph.AddEdge('D', 'F', 4);
-            graph.AddEdge('E', 'F', 1);
-            graph.AddEdge('E', 'G',5);
-            graph.AddEdge('F', 'G', 8);
+            graph.AddEdge('A','B' , new Random().Next(1, 100));
+            graph.AddEdge('A', 'C', new Random().Next(1, 100));
+            graph.AddEdge('A', 'D', new Random().Next(1, 100));
+            graph.AddEdge('B', 'C', new Random().Next(1, 100));
+            graph.AddEdge('C', 'D', new Random().Next(1, 100));
+            graph.AddEdge('B', 'E', new Random().Next(1, 100));
+            graph.AddEdge('C', 'E', new Random().Next(1, 100));
+            graph.AddEdge('C', 'F', new Random().Next(1, 100));
+            graph.AddEdge('D', 'F', new Random().Next(1, 100));
+            graph.AddEdge('E', 'F', new Random().Next(1, 100));
+            graph.AddEdge('E', 'G', new Random().Next(1, 100));
+            graph.AddEdge('F', 'G', new Random().Next(1, 100));
+            graph.AddEdge('C', 'H', new Random().Next(1, 100));
+            graph.AddEdge('E', 'H', new Random().Next(1, 100));
+            graph.AddEdge('B', 'H', new Random().Next(1, 100));
+            graph.AddEdge('D', 'I', new Random().Next(1, 100));
+            graph.AddEdge('H', 'I', new Random().Next(1, 100));
+            graph.AddEdge('F', 'I', new Random().Next(1, 100));
 
+            Console.WriteLine();
 
-            
-            Console.WriteLine(dijkstra.GetShortestPath('A','G'));
+            // алгоритм Дейкстры
+            Console.WriteLine(dijkstra.GetShortestPath('A','I'));  // Расчет самого быстрый маршрут из 'A' в'I'
             Console.WriteLine();
 
 

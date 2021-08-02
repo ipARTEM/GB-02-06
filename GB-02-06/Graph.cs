@@ -59,6 +59,8 @@ namespace GB_02_06
             GetNode(node1).edges.push(new NodeEdge( node2,weight));
             GetNode(node2).edges.push(new NodeEdge(node1, weight));
 
+            Console.WriteLine($"Вершина-{node1} Ребро-{weight} Вершина-{node2}");
+
 
         }
 
