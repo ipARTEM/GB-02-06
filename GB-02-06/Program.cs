@@ -9,19 +9,45 @@ namespace GB_02_06
 
         static void Main(string[] args)
         {
-            Graph(10); // количество вершин
+            Stack stack = new Stack();
 
-            BFS();
+            stack.push("стул");
+            stack.push("стол");
+            stack.push("ваза");
 
-            Graph(10); // количество вершин
+            stack.push(new City("Москва"));
+            stack.push(new City("Лондон"));
+            stack.push(new City("Нью-Йорк"));
 
-            DFS();
+
+            Node<T> node1 = new Node<T>("молоко",null);
+            Node<T> node2 = new Node<T>("хлеб", node1);
+            Node<T> node3 = new Node<T>("мыло", node2);
+
+            foreach (string item in stack.list())
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine(node3);
+
+            Console.WriteLine(stack.pop());
+            Console.WriteLine(stack.pop());
+            Console.WriteLine(stack.pop());
 
 
+            #region Вариант 1
+            //Graph(10); // количество вершин
 
+            //BFS();
+
+            //Graph(10); // количество вершин
+
+            //DFS();
+            #endregion
         }
 
-
+        #region Вариант 1
         static Queue<int> queue = new Queue<int>();    // очередь, хранящая номера вершин
 
         static Random rand = new Random();
@@ -92,7 +118,8 @@ namespace GB_02_06
             
 
         }
+        #endregion
 
-        
+
     }
 }
