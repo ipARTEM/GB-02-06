@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GB_02_06
 {
-    class Node<T>
+    public class Node<T>
     {
         public  T _item { get; private set; }
 

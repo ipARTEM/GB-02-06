@@ -6,34 +6,34 @@ using System.Threading.Tasks;
 
 namespace GB_02_06
 {
-    class Stack
+    public  class Stack<T>
     {
-        Node<City> head;
+        Node<T> head;
 
         public Stack()
         {
             head = null;
         }
 
-        public void push(City item)
+        public void push(T item)
         {
-            head = new Node<City>(item,head);
+            head = new Node<T>(item,head);
 
         }
 
-        public string pop()
+        public T pop()
         {
             if (head == null)
-                return null;
+                throw new Exception("Stack is empty");
             T item = head._item;
             head = head._next;
             return item;
 
         }
 
-        public IEnumerable<City> list()
+        public IEnumerable<T> list()
         {
-            Node<City> node = head;
+            Node<T> node = head;
             while (node!=null)
             {
                 yield return node._item;
